@@ -1,10 +1,19 @@
 // sequelize.ts
+ import dotenv from "dotenv";
+ dotenv.config()
+
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('cafebar', 'root', 'xAcademy2023', {
+
+const sequelize = new Sequelize({
+    username: process.env.DB_User,
+    password: process.env.DB_PASS,
+    database: process.env.DB_Name,
     host: 'localhost',
-    dialect: 'mysql', // Ajusta según tu base de datos
+    dialect: 'mysql'
 });
+
+console.log('el nombre de la base de datos es ' + process.env.DB_Name)
 
 export { sequelize };
 

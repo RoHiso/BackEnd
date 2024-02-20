@@ -10,11 +10,11 @@ class Server {
     
     constructor(){
         this.app = express();
-        this.PORT = process.env.SERVER_URL ||"3001";
+        this.PORT = process.env.PORT ||"3001";
         this.listen();
         this.middlewares();
         this.router();
-        console.log(process.env);
+        //console.log(process.env);
     }
     
     
