@@ -5,6 +5,7 @@ import { sequelize } from '../Configuraciones/Sequelize';
 
 export interface TipoEmpleadoAttributes {
     Id_TipoEmp: number;
+    nombre:string;
     descripcion: string;
 }
 
@@ -19,6 +20,10 @@ export const TipoEmpleadoModelo = sequelize.define<TipoEmpleadoModelo>('TipoEmpl
         autoIncrement: true,
         allowNull: false,
     },
+    nombre: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+    },    
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,4 +31,5 @@ export const TipoEmpleadoModelo = sequelize.define<TipoEmpleadoModelo>('TipoEmpl
 }, {
     tableName: 'tipoempleado',
     modelName: 'TipoEmpleadoModelo',
+    timestamps: false, // Puedes ajustar esto según tus necesidades
 });

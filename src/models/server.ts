@@ -1,7 +1,8 @@
 import express, {Application, Request, Response} from "express";
 import cors from 'cors';
 import routesPersonas from '../routes/routesPersonas';
-import routesClientes from '../routes/routesClientes'
+import routesClientes from '../routes/routesClientes';
+import routesTipoEmpleados from '../routes/routesTipoEmpleados'
 
 class Server {
     
@@ -44,6 +45,8 @@ class Server {
         this.app.use('/api/personas', routesPersonas);
 
         this.app.use('/api/clientes', routesClientes);
+
+        this.app.use('/api/TipoEmpleados', routesTipoEmpleados);
     }
 }
 export default Server;
