@@ -25,7 +25,7 @@ class Server {
     listen(){
         
         this.app.listen(this.PORT, ()=>{
-            console.log("Api corriendo en puerto :" +this.PORT);
+            console.log("Api corriendo en puerto :" + this.PORT);
         })
     }
 
