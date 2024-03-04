@@ -2,7 +2,9 @@ import express, {Application, Request, Response} from "express";
 import cors from 'cors';
 import routesPersonas from '../routes/routesPersonas';
 import routesClientes from '../routes/routesClientes';
-import routesTipoEmpleados from '../routes/routesTipoEmpleados'
+import routesTipoEmpleados from '../routes/routesTipoEmpleados';
+import routesUsuarios from "../routes/routesUsuarios";
+import UsuarioModelo from "./UsuarioModelo";
 
 class Server {
     
@@ -14,6 +16,7 @@ class Server {
         this.PORT = process.env.PORT ||"3001";
         this.listen();
         this.middlewares();
+        this.sincronizarTablas();
         this.router();
         //console.log(process.env);
     }
@@ -33,6 +36,11 @@ class Server {
         this.app.use(cors());
        }
 
+    sincronizarTablas(){
+        UsuarioModelo.sync()
+        console.log("Tabla Usuarios sincronizada exitosamente");
+    }
+
     router(){
     
         this.app.get('/', (req:Request, res:Response)=>{
@@ -47,6 +55,8 @@ class Server {
         this.app.use('/api/clientes', routesClientes);
 
         this.app.use('/api/TipoEmpleados', routesTipoEmpleados);
+
+        this.app.use('/api/Usuarios', routesUsuarios);
     }
 }
 export default Server;
