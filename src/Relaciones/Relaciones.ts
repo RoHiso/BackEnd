@@ -3,6 +3,7 @@ import { PersonaModelo } from '../models/PersonaModel'
 import { EmpleadoModelo } from '../models/EmpleadoModelo';
 import { TipoEmpleadoModelo } from '../models/TipoEmpleadoModelo';
 import { ClienteModelo } from '../models/ClienteModelo';
+import UsuarioModelo from '../models/UsuarioModelo';
 
 // Relaciones entre Persona y Empleado
 PersonaModelo.hasOne(EmpleadoModelo, { foreignKey: 'Id_Persona', as: 'empleado' });
@@ -16,4 +17,8 @@ TipoEmpleadoModelo.hasMany(EmpleadoModelo, { foreignKey: 'Id_TipoEmp', as: 'empl
 PersonaModelo.hasOne(ClienteModelo, { foreignKey: 'Id_Persona', as: 'cliente' });
 ClienteModelo.belongsTo(PersonaModelo, { foreignKey: 'Id_Persona', as: 'persona' });
 
-export { PersonaModelo, EmpleadoModelo, TipoEmpleadoModelo, ClienteModelo };
+//Relaciones entre Personal y Usuarios
+PersonaModelo.hasOne(UsuarioModelo, { foreignKey: 'Id_Persona', as: 'usuario'});
+UsuarioModelo.belongsTo(PersonaModelo, { foreignKey: 'Id_Persona',as: 'persona'});
+
+export { PersonaModelo, EmpleadoModelo, TipoEmpleadoModelo, ClienteModelo, UsuarioModelo };
