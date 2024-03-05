@@ -39,7 +39,7 @@ class Server {
 
     sincronizarTablas(){
         UsuarioModelo.sync()
-        console.log("Tabla Usuarios sincronizada exitosamente");
+        console.log("La tabla Usuarios fue sincronizada exitosamente");
     }
 
     router(){

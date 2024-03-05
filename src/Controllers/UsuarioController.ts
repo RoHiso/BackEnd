@@ -1,4 +1,7 @@
+
 import express, { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import UsuarioModelo from '../models/UsuarioModelo';
 import { PersonaModelo } from '../models/PersonaModel';
 
