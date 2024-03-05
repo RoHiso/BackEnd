@@ -3,6 +3,7 @@ import cors from 'cors';
 import routesPersonas from '../routes/routesPersonas';
 import routesClientes from '../routes/routesClientes';
 import routesTipoEmpleados from '../routes/routesTipoEmpleados'
+import { TipoEmpleadoModelo } from "./TipoEmpleadoModelo";
 
 class Server {
     
@@ -14,6 +15,7 @@ class Server {
         this.PORT = process.env.PORT ||"3001";
         this.listen();
         this.middlewares();
+        // this.sincronizarTablas();
         this.router();
         //console.log(process.env);
     }
@@ -26,6 +28,7 @@ class Server {
         })
     }
 
+    
     middlewares(){
         //parseamos el Body
         this.app.use(express.json())

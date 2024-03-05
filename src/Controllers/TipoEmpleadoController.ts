@@ -16,7 +16,7 @@ export const getAllTiposEmpleados = async (req:Request, res:Response)=>{
   }
 }
   
-// Obtener un tipo de Empleado por su ID
+// Obtener un TipoEmpleado por su ID
 
 export const getTipoEmpleado = async (req:Request, res:Response)=>{
   const {id} = req.params;
@@ -51,22 +51,22 @@ export const crearTipoEmpleado = async (req: Request, res: Response) => {
   }
 };
 
-// // Ruta para actualizar un tipo de empleado existente
-// router.put('/tipos-empleado/:id', async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params;
-//     const { nombre, descripcion } = req.body;
-//     const tipoEmpleado = await TipoEmpleado.findByPk(id);
-//     if (!tipoEmpleado) {
-//       return res.status(404).json({ error: 'Tipo de empleado no encontrado' });
-//     }
-//     await tipoEmpleado.update({ nombre, descripcion });
-//     res.json(tipoEmpleado);
-//   } catch (error) {
-//     console.error('Error al actualizar tipo de empleado:', error);
-//     res.status(500).json({ error: 'Error al actualizar tipo de empleado' });
-//   }
-// });
+// Actualizar un tipo de empleado existente
+export const editTipoEmpleado = async (req: Request, res: Response) => {
+   try {
+     const { id } = req.params;
+     const { nombre, descripcion } = req.body;
+     const tipoEmpleado = await TipoEmpleadoModelo.findByPk(id);
+     if (!tipoEmpleado) {
+       return res.status(404).json({ error: 'Tipo de empleado no encontrado' });
+     }
+     await tipoEmpleado.update({ nombre, descripcion });
+     res.json(tipoEmpleado);
+   } catch (error) {
+     console.error('Error al actualizar tipo de empleado:', error);
+     res.status(500).json({ error: 'Error al actualizar tipo de empleado' });
+   }
+ };
 
 // // Ruta para eliminar un tipo de empleado existente
 // router.delete('/tipos-empleado/:id', async (req: Request, res: Response) => {
