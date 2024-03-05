@@ -26,8 +26,8 @@ export const TipoEmpleadoModelo = sequelize.define<TipoEmpleadoModelo>('TipoEmpl
     },    
     descripcion: {
         type: DataTypes.STRING,
-        allowNull: false,
-    },
+        allowNull: false, 
+    }, 
 }, {
     tableName: 'tipoempleado',
     modelName: 'TipoEmpleadoModelo',
