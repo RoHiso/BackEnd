@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { obtenerUsuario, obtenerUsuarios } from "../Controllers/UsuarioController";
+import { obtenerUsuario, obtenerUsuarios, agregarUsuarioConToken } from "../Controllers/UsuarioController";
 
 const routes = Router();
 
@@ -9,6 +9,6 @@ routes.get('/:id',obtenerUsuario);
 
 // routes.put('/:id',editPerson);
 
-// routes.post('/',crearPersona);
+routes.post('/',agregarUsuarioConToken);
 
 export default routes;

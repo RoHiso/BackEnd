@@ -4,7 +4,7 @@ import { PersonaModelo } from "./PersonaModel";
 
 
 interface UsuarioAttributes {
-  Id_Usuario: number;
+  Id_Usuario?: number;
   Id_Persona: number;
   username: string;
   password: string;
