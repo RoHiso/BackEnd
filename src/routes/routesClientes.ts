@@ -1,12 +1,13 @@
 import { Router } from "express";
 
 import { crearCliente, editCliente, eliminarCliente, getAllClientes, getClliente } from "../Controllers/ClienteController";
+import { validateToken } from "./validate-Token";
 
 const routes = Router();
 
-routes.get('/',getAllClientes);
+routes.get('/',validateToken, getAllClientes);
 
-routes.get('/:id',getClliente);
+routes.get('/:id',validateToken, getClliente);
 
 routes.put('/:id',editCliente);
 
