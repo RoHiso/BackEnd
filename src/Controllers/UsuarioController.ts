@@ -6,15 +6,13 @@ import UsuarioModelo from '../models/UsuarioModelo';
 import { PersonaModelo } from '../models/PersonaModel';
 
 
-//Nuevo usuario con Token
-
-
-const generarToken = (usuarioId: number) => {
-  const token = jwt.sign({ id: usuarioId }, 'secreto', { expiresIn: '1h' });
+//Nuevo Usuario
+const generarToken = (username: string) => {
+  const token = jwt.sign({ username: username }, process.env.SECRET_KEY || 'secreto', { expiresIn: '1h' });
   return token;
 };
 
-export const agregarUsuarioConToken = async (req: Request, res: Response) => {
+export const agregarUsuario = async (req: Request, res: Response) => {
   const { Id_Persona, username, password, rol } = req.body;
 
   try {
@@ -26,21 +24,60 @@ export const agregarUsuarioConToken = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Crear el nuevo usuario sin el Id_Usuario
-    const nuevoUsuario = await UsuarioModelo.create({ Id_Persona, username, password: hashedPassword, rol });
+
+      const nuevoUsuario = await UsuarioModelo.create({ 
+      Id_Persona: Id_Persona,
+      username:username,
+      password:hashedPassword,
+      rol:rol });
 
     // Obtener el Id_Usuario generado
     const usuarioId = nuevoUsuario.Id_Usuario;
 
-    // Generar el token con el Id_Usuario
-    const token = generarToken(usuarioId);
-    console.log(token);
-
-    res.status(201).json({ usuario: nuevoUsuario, token });
+    res.status(201).json({ usuario: nuevoUsuario });
+    
   } catch (error) {
     console.error('Error al crear usuario:', error);
     res.status(500).json({ error: 'Error al crear usuario' });
   }
 };
+
+//Login User
+
+export const loginUser = async (req:Request, res:Response) =>{
+  const {username, password} = req.body
+
+  //identificamos que exista el usuario
+try {
+  const usuario: any = await UsuarioModelo.findOne({ where: { username: username } });
+  if (!usuario) {
+    return res.status(400).json({ error: `No existe el usuario ${username} en la base de datos` });
+  }
+  
+  //Validamos el password
+  const passwordValid = await bcrypt.compare(password, usuario.password)
+  console.log(passwordValid);
+  
+  //generamos el Token y lo enviamos
+  if (passwordValid) {
+    const token = generarToken(username);
+    return res.status(200).json( {
+      msg:"Usuario y contraseña correctos, se genero el  siguiente token",
+      token: token
+    })
+  }else {
+    return res.status(400).json({
+      msg: 'Error, Contraseña incorrecta'
+    });
+  }
+
+} catch (error) {
+  console.log(error);
+}
+
+
+
+}
 
 
 // Obtener un Usuario
